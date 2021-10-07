@@ -1,26 +1,17 @@
 package by.bsuir.lab2.models;
 
-import by.bsuir.lab2.repository.impl.ArrayRepository;
+import java.math.BigDecimal;
+import java.util.Objects;
 
-public class Book implements ArrayRepository.Entity, Cloneable {
-    private Long id;
-    private Long productId;
+public class Book extends Product {
     private String author;
 
-    public Long getId() {
-        return id;
+    public Book() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public Book(Long id, String title, String description, BigDecimal price, String author) {
+        super(id, title, description, price);
+        setAuthor(author);
     }
 
     public String getAuthor() {
@@ -32,11 +23,23 @@ public class Book implements ArrayRepository.Entity, Cloneable {
     }
 
     @Override
-    public Book clone() {
-        try {
-            return (Book) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError(e);
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Book book = (Book) o;
+        return Objects.equals(author, book.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), author);
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "author='" + author + '\'' +
+                '}';
     }
 }

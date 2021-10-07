@@ -13,6 +13,4 @@ public interface ProductRepository extends Repository<Long, Product> {
     List<Product> findAllById(Iterable<Long> ids);
 
     List<Product> findAllByCriteria(Predicate<Product> criteria);
-
-    Product findCheapestProduct();
 }

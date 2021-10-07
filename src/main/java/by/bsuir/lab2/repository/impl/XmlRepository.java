@@ -1,32 +1,53 @@
 package by.bsuir.lab2.repository.impl;
 
-import by.bsuir.lab2.exception.XmlParseException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-import java.io.File;
-import java.io.Flushable;
-import java.io.IOException;
-import java.util.List;
+import javax.xml.stream.*;
+import java.io.*;
 
 public class XmlRepository<T extends ArrayRepository.Entity> extends ArrayRepository<T> implements Flushable {
-    private final XmlMapper mapper = new XmlMapper();
+    private final XmlMapper mapper;
     private final File location;
 
     public XmlRepository(String file) {
         this.location = new File(file);
+        mapper = new XmlMapper();
 
         try {
-            @SuppressWarnings("unchecked")
-            List<T> list = mapper.readValue(location, List.class);
-            data.addAll(list);
-        } catch (IOException | ClassCastException e) {
-            throw new XmlParseException(e);
+            XMLInputFactory f = XMLInputFactory.newFactory();
+            XMLStreamReader reader = f.createXMLStreamReader(new FileInputStream(location));
+
+            try {
+                while (true) {
+                    Class<?> cls = mapper.readValue(reader, Class.class);
+                    @SuppressWarnings("unchecked")
+                    T o = (T) mapper.readValue(reader, cls);
+                    data.add(o);
+                }
+            } finally {
+                reader.close();
+            }
+        } catch (Exception e) {
         }
     }
 
     @Override
     public void flush() throws IOException {
-        mapper.writeValue(location, data);
+        try {
+            XMLOutputFactory f = XMLOutputFactory.newFactory();
+            XMLStreamWriter writer = f.createXMLStreamWriter(new FileOutputStream(location));
+
+            try {
+                for (T t : data) {
+                    mapper.writeValue(writer, t.getClass());
+                    mapper.writeValue(writer, t);
+                }
+            } finally {
+                writer.close();
+            }
+        } catch (XMLStreamException e) {
+            throw new IOException(e);
+        }
     }
 
     @Override

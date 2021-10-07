@@ -1,42 +1,56 @@
 package by.bsuir.lab2.models;
 
-import by.bsuir.lab2.repository.impl.ArrayRepository;
+import java.math.BigDecimal;
+import java.util.Objects;
 
-public class Teapot implements ArrayRepository.Entity, Cloneable {
-    private Long id;
-    private Long productId;
-    private int waterVolume;
+public class Teapot extends Product {
+    private double waterVolume;
+    private String manufacturer;
 
-    public Long getId() {
-        return id;
+    public Teapot() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Teapot(Long id, String title, String description, BigDecimal price, double waterVolume, String manufacturer) {
+        super(id, title, description, price);
+        setWaterVolume(waterVolume);
+        setManufacturer(manufacturer);
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public int getWaterVolume() {
+    public double getWaterVolume() {
         return waterVolume;
     }
 
-    public void setWaterVolume(int waterVolume) {
+    public void setWaterVolume(double waterVolume) {
         this.waterVolume = waterVolume;
     }
 
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
     @Override
-    public Teapot clone() {
-        try {
-            return (Teapot) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Teapot teapot = (Teapot) o;
+        return waterVolume == teapot.waterVolume && Objects.equals(manufacturer, teapot.manufacturer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), waterVolume, manufacturer);
+    }
+
+    @Override
+    public String toString() {
+        return "Teapot{" +
+                "waterVolume=" + waterVolume +
+                ", manufacturer='" + manufacturer + '\'' +
+                '}';
     }
 }

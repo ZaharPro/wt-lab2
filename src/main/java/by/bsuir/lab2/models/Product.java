@@ -15,10 +15,10 @@ public class Product implements ArrayRepository.Entity, Cloneable {
     }
 
     public Product(Long id, String title, String description, BigDecimal price) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.price = price;
+        setId(id);
+        setTitle(title);
+        setDescription(description);
+        setPrice(price);
     }
 
     public Long getId() {

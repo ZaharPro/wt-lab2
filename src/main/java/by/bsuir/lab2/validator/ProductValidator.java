@@ -1,11 +1,11 @@
 package by.bsuir.lab2.validator;
 
-import by.bsuir.lab2.dto.ProductDto;
+import by.bsuir.lab2.models.Product;
 import by.bsuir.lab2.repository.ProductRepository;
 
 import java.util.Objects;
 
-public class ProductValidator implements Validator<ProductDto> {
+public class ProductValidator implements Validator<Product> {
     private final ProductRepository repository;
 
     public ProductValidator(ProductRepository repository) {
@@ -13,7 +13,7 @@ public class ProductValidator implements Validator<ProductDto> {
     }
 
     @Override
-    public void validate(ProductDto dto) {
+    public void validate(Product dto) {
         Objects.requireNonNull(dto);
     }
 }
