@@ -75,6 +75,7 @@ public class ProductDto {
         dto.setId(product.getId());
         dto.setTitle(product.getTitle());
         dto.setDescription(dto.getDescription());
+        dto.setPrice(product.getPrice());
         return dto;
     }
 

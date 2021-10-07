@@ -1,10 +1,11 @@
 package by.bsuir.lab2.models;
 
-import java.io.Serializable;
+import by.bsuir.lab2.repository.impl.ArrayRepository;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Product implements Serializable, Cloneable {
+public class Product implements ArrayRepository.Entity, Cloneable {
     private Long id;
     private String title;
     private String description;
@@ -14,18 +15,10 @@ public class Product implements Serializable, Cloneable {
     }
 
     public Product(Long id, String title, String description, BigDecimal price) {
-        setId(id);
-        setTitle(title);
-        setDescription(description);
-        setPrice(price);
-    }
-
-    public void setAll(Product other) {
-        Objects.requireNonNull(other);
-        setId(other.getId());
-        setTitle(other.getTitle());
-        setDescription(other.getDescription());
-        setPrice(other.getPrice());
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
     }
 
     public Long getId() {
@@ -60,6 +53,7 @@ public class Product implements Serializable, Cloneable {
         this.price = price;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,10 +83,9 @@ public class Product implements Serializable, Cloneable {
     @Override
     public Product clone() {
         try {
-            Product clone = (Product) super.clone();
-            return clone;
+            return (Product) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
+            throw new AssertionError(e);
         }
     }
 }
