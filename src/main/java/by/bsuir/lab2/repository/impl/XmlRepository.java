@@ -1,5 +1,6 @@
 package by.bsuir.lab2.repository.impl;
 
+import by.bsuir.lab2.exception.XmlParseException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import javax.xml.stream.*;
@@ -11,7 +12,7 @@ public class XmlRepository<T extends ArrayRepository.Entity> extends ArrayReposi
 
     public XmlRepository(String file) {
         this.location = new File(file);
-        mapper = new XmlMapper();
+        this.mapper = new XmlMapper();
 
         try {
             XMLInputFactory f = XMLInputFactory.newFactory();
@@ -27,10 +28,12 @@ public class XmlRepository<T extends ArrayRepository.Entity> extends ArrayReposi
                     T o = (T) mapper.readValue(reader, Class.forName(className));
                     data.add(o);
                 }
+            } catch (Exception ignored) {
             } finally {
                 reader.close();
             }
         } catch (Exception e) {
+            throw new XmlParseException(e);
         }
     }
 
