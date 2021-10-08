@@ -49,7 +49,11 @@ public class Teapot extends Product {
     @Override
     public String toString() {
         return "Teapot{" +
-                "waterVolume=" + waterVolume +
+                "id=" + getId() +
+                ", title='" + getTitle() + '\'' +
+                ", description='" + getDescription() + '\'' +
+                ", price=" + getPrice() +
+                ", waterVolume=" + waterVolume +
                 ", manufacturer='" + manufacturer + '\'' +
                 '}';
     }

@@ -29,6 +29,7 @@ public class ArrayRepository<T extends ArrayRepository.Entity> implements Reposi
         data.addAll(ts);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void insert(T t) {
         Objects.requireNonNull(t);
@@ -36,6 +37,7 @@ public class ArrayRepository<T extends ArrayRepository.Entity> implements Reposi
         data.add((T) t.clone());
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void update(T t) {
         Long id = Objects.requireNonNull(Objects.requireNonNull(t).getId());

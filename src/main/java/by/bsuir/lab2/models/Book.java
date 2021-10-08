@@ -39,7 +39,11 @@ public class Book extends Product {
     @Override
     public String toString() {
         return "Book{" +
-                "author='" + author + '\'' +
+                "id=" + getId() +
+                ", title='" + getTitle() + '\'' +
+                ", description='" + getDescription() + '\'' +
+                ", price=" + getPrice() +
+                ", author='" + author + '\'' +
                 '}';
     }
 }

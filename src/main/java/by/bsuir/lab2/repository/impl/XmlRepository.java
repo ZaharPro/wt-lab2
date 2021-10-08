@@ -18,10 +18,13 @@ public class XmlRepository<T extends ArrayRepository.Entity> extends ArrayReposi
             XMLStreamReader reader = f.createXMLStreamReader(new FileInputStream(location));
 
             try {
+                reader.next();
+                reader.next();
                 while (true) {
-                    Class<?> cls = mapper.readValue(reader, Class.class);
+                    String classNameWrap = mapper.readValue(reader, Object.class).toString();
+                    String className = classNameWrap.substring(2, classNameWrap.length() - 1);
                     @SuppressWarnings("unchecked")
-                    T o = (T) mapper.readValue(reader, cls);
+                    T o = (T) mapper.readValue(reader, Class.forName(className));
                     data.add(o);
                 }
             } finally {
@@ -37,12 +40,17 @@ public class XmlRepository<T extends ArrayRepository.Entity> extends ArrayReposi
             XMLOutputFactory f = XMLOutputFactory.newFactory();
             XMLStreamWriter writer = f.createXMLStreamWriter(new FileOutputStream(location));
 
+            writer.writeStartDocument();
+            writer.writeStartElement("Data");
+
             try {
                 for (T t : data) {
-                    mapper.writeValue(writer, t.getClass());
+                    mapper.writeValue(writer, t.getClass().getName());
                     mapper.writeValue(writer, t);
                 }
             } finally {
+                writer.writeEndElement();
+                writer.writeEndDocument();
                 writer.close();
             }
         } catch (XMLStreamException e) {

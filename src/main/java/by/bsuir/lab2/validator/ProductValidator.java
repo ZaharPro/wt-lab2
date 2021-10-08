@@ -13,7 +13,9 @@ public class ProductValidator implements Validator<Product> {
     }
 
     @Override
-    public void validate(Product dto) {
-        Objects.requireNonNull(dto);
+    public void validate(Product product) {
+        Objects.requireNonNull(product);
+        Objects.requireNonNull(product.getTitle());
+        Objects.requireNonNull(product.getPrice());
     }
 }
