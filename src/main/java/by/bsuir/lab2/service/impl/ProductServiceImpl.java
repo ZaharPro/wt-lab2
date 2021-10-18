@@ -70,13 +70,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findCheapestProduct() {
         return findAll().stream()
-                .min(Comparator.nullsLast(Comparator.comparing(Product::getPrice)))
+                .filter(Objects::nonNull)
+                .min(Comparator.comparing(Product::getPrice))
                 .orElse(null);
     }
 
     @Override
     public List<Teapot> findAllTeapots() {
         return findAll().stream()
+                .filter(Objects::nonNull)
                 .filter(product -> product.getClass() == Teapot.class)
                 .map(product -> ((Teapot) product))
                 .collect(Collectors.toList());

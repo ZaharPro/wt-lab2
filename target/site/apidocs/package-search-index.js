@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"by.bsuir.lab2.app"},{"l":"by.bsuir.lab2.controller"},{"l":"by.bsuir.lab2.exception"},{"l":"by.bsuir.lab2.models"},{"l":"by.bsuir.lab2.repository"},{"l":"by.bsuir.lab2.repository.impl"},{"l":"by.bsuir.lab2.service"},{"l":"by.bsuir.lab2.service.impl"},{"l":"by.bsuir.lab2.validator"}]

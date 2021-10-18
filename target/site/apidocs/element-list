@@ -1,0 +1,9 @@
+by.bsuir.lab2.app
+by.bsuir.lab2.controller
+by.bsuir.lab2.exception
+by.bsuir.lab2.models
+by.bsuir.lab2.repository
+by.bsuir.lab2.repository.impl
+by.bsuir.lab2.service
+by.bsuir.lab2.service.impl
+by.bsuir.lab2.validator
